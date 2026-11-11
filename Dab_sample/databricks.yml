@@ -6,6 +6,14 @@ include:
   - resources/*.yml
   - resources/*/*.yml
 
+variables:
+  catalog_name:
+    description: 'default name of catalog'
+    default: 'agent'
+  schema_name:
+    description: 'default name of schema'
+    default: 'bronze'
+
 targets:
   # The 'dev' target, for development purposes. This target is the default.
   dev:
@@ -13,6 +21,11 @@ targets:
     default: true
     workspace:
       host: https://dbc-c9db81a0-3b4a.cloud.databricks.com
+      root_path: /Users/joggiri.pde@gmail.com/github_actions
+    
+    variables:
+      catalog_name: 'agent_dev'
+      schema_name: 'bronze_dev' 
 
   # The 'prod' target, used for production deployment.
   prod:
