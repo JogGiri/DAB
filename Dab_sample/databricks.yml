@@ -1,0 +1,44 @@
+# Declarative Automation Bundle configuration, more info here: https://docs.databricks.com/en/dev-tools/bundles/settings.html
+bundle:
+  name: "Dab_sample"
+
+include:
+  - resources/*.yml
+  - resources/*/*.yml
+
+variables:
+  catalog_name:
+    description: 'default name of catalog'
+    default: 'agent'
+  schema_name:
+    description: 'default name of schema'
+    default: 'bronze'
+
+targets:
+  # The 'dev' target, for development purposes. This target is the default.
+  dev:
+    mode: development
+    default: true
+    workspace:
+      host: https://dbc-c9db81a0-3b4a.cloud.databricks.com
+      root_path: /Users/joggiri.pde@gmail.com/github_actions
+    
+    variables:
+      catalog_name: 'agent_dev'
+      schema_name: 'bronze_dev' 
+
+  # The 'prod' target, used for production deployment.
+  prod:
+    mode: production
+    workspace:
+      host: https://dbc-307e284d-9fdc.cloud.databricks.com/
+      # We always use /Users/joggiri.pde@gmail.com for all resources to make sure we only have a single copy.
+      root_path: /Users/joggiri.pde@gmail.com/github_actions
+
+    variables:
+      catalog_name: 'agent_prod'
+      schema_name: 'bronze_prod' 
+    run_as:
+      # This runs as joggiri.pde@gmail.com in production. We could also use a service principal here,
+      # see https://docs.databricks.com/dev-tools/bundles/permissions.html.
+      user_name: joggiri.pde@gmail.com
