@@ -31,9 +31,13 @@ targets:
   prod:
     mode: production
     workspace:
-      host: https://dbc-c9db81a0-3b4a.cloud.databricks.com
+      host: https://dbc-307e284d-9fdc.cloud.databricks.com/
       # We always use /Users/joggiri.pde@gmail.com for all resources to make sure we only have a single copy.
-      root_path: /Users/joggiri.pde@gmail.com/.bundle/${bundle.name}/${bundle.target}
+      root_path: /Users/joggiri.pde@gmail.com/github_actions
+
+    variables:
+      catalog_name: 'agent_prod'
+      schema_name: 'bronze_prod' 
     run_as:
       # This runs as joggiri.pde@gmail.com in production. We could also use a service principal here,
       # see https://docs.databricks.com/dev-tools/bundles/permissions.html.
